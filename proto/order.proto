@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package orders;
+
+option go_package = "order.v1";
+
+service OrderService {
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);    
+    rpc UpdateOrder(UpdateOrderRequest) returns (UpdateOrderResponse);
+    rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+    rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderResponse);
+}
+
+message Order {
+    string name = 1;
+    int64 price = 2;
+    int32 count = 3;
+    int32 order_id = 4;
+}
+
+message CreateOrderRequest {
+    string name = 1;
+    int64 price = 2;
+    int32 count = 3;
+}
+
+message CreateOrderResponse {
+    Order create_order = 1;
+    string message = 2;
+}
+
+message UpdateOrderRequest {
+    Order update_order = 1;
+}
+
+message UpdateOrderResponse {
+    bool status = 1;
+    string message = 2; 
+}
+
+message GetOrderRequest {
+    int32 order_id = 1;  
+}
+
+message GetOrderResponse {
+    Order order_name = 1;
+}
+
+message DeleteOrderRequest {
+    int32 order_id = 1;
+}
+
+message DeleteOrderResponse {
+    bool success = 1;
+}
