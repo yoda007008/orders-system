@@ -3,8 +3,4 @@ grpc-server:
   host: "localhost"
 
 database:
-  host: "localhost"
-  port: 5437
-  user: "postgres"
-  password: "112233"
-  dbname: "order_system"
+  url: "postgres://postgres:112233@localhost:5437/order_system"
