@@ -5,6 +5,7 @@ go 1.23.0
 toolchain go1.24.6
 
 require (
+	github.com/golang-migrate/migrate v3.5.4+incompatible // indirect
 	github.com/golang-migrate/migrate/v4 v4.19.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
