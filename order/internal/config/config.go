@@ -13,11 +13,7 @@ type Config struct {
 	} `yaml:"order-service"`
 
 	DatabaseConfig struct {
-		Host         string `yaml:"host"`
-		Port         int    `yaml:"port"`
-		User         string `yaml:"user"`
-		Password     string `yaml:"password"`
-		DatabaseName string `yaml:"dbname"`
+		Url string `yaml:"url"`
 	} `yaml:"order-database"`
 }
 
