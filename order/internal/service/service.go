@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"example.com/mod/order/internal/dto"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -23,3 +24,7 @@ func NewPostgresOrderRepository(connsStr string) (*PostgresOrderRepository, erro
 }
 
 // todo bisnes logic (create, read, update, delete)
+func (p *PostgresOrderRepository) CreateOrder(ctx context.Context, c *dto.Order) error {
+	_, err := p.db.Exec(ctx, "INSERT INTO order(name, price, count, order_id) VALUES ($1, $2, $3)")
+	return err
+}
