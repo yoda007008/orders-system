@@ -26,7 +26,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	// GRPC_HOST := cfg.GRPCServerConfig.Host // configs lines
+	// configs lines
 	GRPC_PORT := cfg.GRPCServerConfig.Port
 	DATABASE_URL := cfg.DatabaseConfig.Url
 
