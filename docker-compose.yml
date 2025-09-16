@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres
+    container_name: order_database
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 112233
+      POSTGRES_DB: order_system
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
