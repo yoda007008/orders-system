@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
+	"log/slog"
 
 	"example.com/mod/order/internal/dto"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -25,6 +26,13 @@ func NewPostgresOrderRepository(connsStr string) (*PostgresOrderRepository, erro
 
 // todo bisnes logic (create, read, update, delete)
 func (p *PostgresOrderRepository) CreateOrder(ctx context.Context, c *dto.Order) error {
-	_, err := p.db.Exec(ctx, "INSERT INTO order(name, price, count, order_id) VALUES ($1, $2, $3)")
+	_, err := p.db.Exec(ctx, "INSERT INTO order(order_name, order_price, order_count, order_id) VALUES ($1, $2, $3, $4)")
+	slog.Info("Success INSERT")
+	return err
+}
+
+func (p *PostgresOrderRepository) UpdateOrder(ctx context.Context, c *dto.Order) error {
+	_, err := p.db.Exec(ctx, `UPDATE order SET order_name = $1, order_price = $2, order_count = $3`)
+	slog.Info("Success UPDATE")
 	return err
 }
