@@ -30,3 +30,8 @@ func (o *OrderServer) UpdateOrderHandler(ctx context.Context, req *order_v1.Upda
 	})
 	return &order_v1.UpdateOrderResponse{}, err
 }
+
+func (o *OrderServer) DeleteOrderHanler(ctx context.Context, req *order_v1.DeleteOrderRequest) (*order_v1.DeleteOrderResponse, error) {
+	err := o.Repo.DeleteOrder(ctx, req.OrderId)
+	return &order_v1.DeleteOrderResponse{}, err
+}

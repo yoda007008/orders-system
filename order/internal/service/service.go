@@ -32,7 +32,13 @@ func (p *PostgresOrderRepository) CreateOrder(ctx context.Context, c *dto.Order)
 }
 
 func (p *PostgresOrderRepository) UpdateOrder(ctx context.Context, c *dto.Order) error {
-	_, err := p.db.Exec(ctx, `UPDATE order SET order_name = $1, order_price = $2, order_count = $3`)
+	_, err := p.db.Exec(ctx, `UPDATE order SET order_name = $1, order_price = $2, order_count = $3`, c.Name, c.Count, c.Price)
 	slog.Info("Success UPDATE")
+	return err
+}
+
+func (p *PostgresOrderRepository) DeleteOrder(ctx context.Context, order_id int32) error {
+	_, err := p.db.Exec(ctx, `DELETE FROM order WHERE order_id = $1`, order_id)
+	slog.Info("Success DELETE")
 	return err
 }
