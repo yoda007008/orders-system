@@ -2,4 +2,7 @@ order-service:
   port: ":50051"
 
 order-database:
-  url: "postgres://postgres:112233@localhost:5437/order_system"
+  url: "postgres://postgres:112233@localhost:5437/order_system?sslmode=disable"
+
+migrations-path:   
+  path: "/home/kirill/GolandProjects/orderSystem/order/internal/migrations"

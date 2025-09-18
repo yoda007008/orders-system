@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	migration "example.com/mod/order/cmd/migrator"
 	"example.com/mod/order/internal/config"
 	"example.com/mod/order/internal/handlers"
 	"example.com/mod/order/internal/service"
@@ -29,6 +30,12 @@ func main() {
 	// configs lines
 	GRPC_PORT := cfg.GRPCServerConfig.Port
 	DATABASE_URL := cfg.DatabaseConfig.Url
+	MIGRATIONS_PATH := cfg.MigrationsConfig.Path
+
+	if err := migration.RunMigrations(DATABASE_URL, MIGRATIONS_PATH); err != nil { // run migrations
+		slog.Info("Migraions is not access", "error", err)
+		os.Exit(1)
+	}
 
 	repo, err := service.NewPostgresOrderRepository(DATABASE_URL) // connect db
 	if err != nil {

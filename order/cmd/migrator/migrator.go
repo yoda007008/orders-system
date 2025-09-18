@@ -8,26 +8,28 @@ import (
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/lib/pq"
 )
 
 func RunMigrations(connString string, migrationsPath string) error {
 	abcPath, err := filepath.Abs(migrationsPath)
 	if err != nil {
-		fmt.Errorf("Please get absolute PATH")
+		return fmt.Errorf("Please get absolute PATH: %w", err)
 	}
 
-	slog.Info("Apply migrations on these path: ", abcPath)
+	slog.Info("Apply migrations on these path:", "path", abcPath)
 
 	db, err := sql.Open("postgres", connString)
 	if err != nil {
-		return fmt.Errorf("Error openning DB")
+		return fmt.Errorf("Error opening DB: %w", err)
 	}
 
 	defer db.Close()
 
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
-		fmt.Errorf("Error driver Postgres")
+		return fmt.Errorf("Error driver Postgres: %w", err)
 	}
 
 	m, err := migrate.NewWithDatabaseInstance(
