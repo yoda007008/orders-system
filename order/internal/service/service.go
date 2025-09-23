@@ -42,3 +42,11 @@ func (p *PostgresOrderRepository) DeleteOrder(ctx context.Context, order_id int3
 	slog.Info("Success DELETE")
 	return err
 }
+
+func (p *PostgresOrderRepository) GetOrder(ctx context.Context, order_id int32) (*dto.Order, error) {
+	row := p.db.QueryRow(ctx, `SELECT order_name, order_price, order_count FROM order WHERE order_id = $1`, order_id)
+	var c *dto.Order
+	err := row.Scan(&c.Name, &c.Price, &c.Count)
+	slog.Info("Success GET")
+	return c, err
+}

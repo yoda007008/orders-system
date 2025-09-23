@@ -31,7 +31,22 @@ func (o *OrderServer) UpdateOrderHandler(ctx context.Context, req *order_v1.Upda
 	return &order_v1.UpdateOrderResponse{}, err
 }
 
-func (o *OrderServer) DeleteOrderHanler(ctx context.Context, req *order_v1.DeleteOrderRequest) (*order_v1.DeleteOrderResponse, error) {
+func (o *OrderServer) DeleteOrderHandler(ctx context.Context, req *order_v1.DeleteOrderRequest) (*order_v1.DeleteOrderResponse, error) {
 	err := o.Repo.DeleteOrder(ctx, req.OrderId)
 	return &order_v1.DeleteOrderResponse{}, err
+}
+
+func (o *OrderServer) GetOrderHandler(ctx context.Context, req *order_v1.GetOrderRequest) (*order_v1.GetOrderResponse, error) {
+	c, err := o.Repo.GetOrder(ctx, req.OrderId)
+	if err != nil {
+		return &order_v1.GetOrderResponse{}, nil
+	}
+
+	return &order_v1.GetOrderResponse{
+		OrderName: &order_v1.Order{
+			Name:  c.Name,
+			Price: c.Price,
+			Count: c.Count,
+		},
+	}, nil
 }
