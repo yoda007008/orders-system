@@ -13,7 +13,7 @@ type OrderServer struct {
 	Repo *service.PostgresOrderRepository
 }
 
-func (o *OrderServer) CreateOrderHandler(ctx context.Context, req *order_v1.CreateOrderRequest) (*order_v1.CreateOrderResponse, error) {
+func (o *OrderServer) CreateOrder(ctx context.Context, req *order_v1.CreateOrderRequest) (*order_v1.CreateOrderResponse, error) {
 	err := o.Repo.CreateOrder(ctx, &dto.Order{
 		Name:  req.Name,
 		Price: int64(req.Price),
@@ -22,7 +22,7 @@ func (o *OrderServer) CreateOrderHandler(ctx context.Context, req *order_v1.Crea
 	return &order_v1.CreateOrderResponse{}, err
 }
 
-func (o *OrderServer) UpdateOrderHandler(ctx context.Context, req *order_v1.UpdateOrderRequest) (*order_v1.UpdateOrderResponse, error) {
+func (o *OrderServer) UpdateOrder(ctx context.Context, req *order_v1.UpdateOrderRequest) (*order_v1.UpdateOrderResponse, error) {
 	err := o.Repo.UpdateOrder(ctx, &dto.Order{
 		Name:  req.UpdateOrder.Name,
 		Price: req.UpdateOrder.Price,
@@ -31,12 +31,12 @@ func (o *OrderServer) UpdateOrderHandler(ctx context.Context, req *order_v1.Upda
 	return &order_v1.UpdateOrderResponse{}, err
 }
 
-func (o *OrderServer) DeleteOrderHandler(ctx context.Context, req *order_v1.DeleteOrderRequest) (*order_v1.DeleteOrderResponse, error) {
+func (o *OrderServer) DeleteOrder(ctx context.Context, req *order_v1.DeleteOrderRequest) (*order_v1.DeleteOrderResponse, error) {
 	err := o.Repo.DeleteOrder(ctx, req.OrderId)
 	return &order_v1.DeleteOrderResponse{}, err
 }
 
-func (o *OrderServer) GetOrderHandler(ctx context.Context, req *order_v1.GetOrderRequest) (*order_v1.GetOrderResponse, error) {
+func (o *OrderServer) GetOrder(ctx context.Context, req *order_v1.GetOrderRequest) (*order_v1.GetOrderResponse, error) {
 	c, err := o.Repo.GetOrder(ctx, req.OrderId)
 	if err != nil {
 		return &order_v1.GetOrderResponse{}, nil
