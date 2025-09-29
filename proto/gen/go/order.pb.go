@@ -94,6 +94,7 @@ type CreateOrderRequest struct {
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Price         int64                  `protobuf:"varint,2,opt,name=price,proto3" json:"price,omitempty"`
 	Count         int32                  `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
+	OrderId       int32                  `protobuf:"varint,4,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -145,6 +146,13 @@ func (x *CreateOrderRequest) GetPrice() int64 {
 func (x *CreateOrderRequest) GetCount() int32 {
 	if x != nil {
 		return x.Count
+	}
+	return 0
+}
+
+func (x *CreateOrderRequest) GetOrderId() int32 {
+	if x != nil {
+		return x.OrderId
 	}
 	return 0
 }
@@ -482,11 +490,12 @@ const file_order_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
 	"\x05price\x18\x02 \x01(\x03R\x05price\x12\x14\n" +
 	"\x05count\x18\x03 \x01(\x05R\x05count\x12\x19\n" +
-	"\border_id\x18\x04 \x01(\x05R\aorderId\"T\n" +
+	"\border_id\x18\x04 \x01(\x05R\aorderId\"o\n" +
 	"\x12CreateOrderRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
 	"\x05price\x18\x02 \x01(\x03R\x05price\x12\x14\n" +
-	"\x05count\x18\x03 \x01(\x05R\x05count\"a\n" +
+	"\x05count\x18\x03 \x01(\x05R\x05count\x12\x19\n" +
+	"\border_id\x18\x04 \x01(\x05R\aorderId\"a\n" +
 	"\x13CreateOrderResponse\x120\n" +
 	"\fcreate_order\x18\x01 \x01(\v2\r.orders.OrderR\vcreateOrder\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"F\n" +
